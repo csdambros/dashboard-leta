@@ -1,0 +1,4 @@
+filesystem,total_gb,used_gb,available_gb,usage_pct,updated_at
+/,950,718,232,75.6,2026-09-26 14:00
+/srv/projects,3800,3310,490,87.1,2026-09-26 14:00
+/backup,1800,980,820,54.4,2026-09-26 14:00

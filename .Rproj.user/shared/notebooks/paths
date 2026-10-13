@@ -1,2 +1,7 @@
 /home/csdambros2/Documents/Dashboards/dashboard-leta/.gitignore="2D78C357"
+/home/csdambros2/Documents/Dashboards/dashboard-leta/data/.gitkeep="BF05E992"
+/home/csdambros2/Documents/Dashboards/dashboard-leta/data/sar_cpu.csv="E661046D"
+/home/csdambros2/Documents/Dashboards/dashboard-leta/data/sar_mem.csv="687C28B3"
+/home/csdambros2/Documents/Dashboards/dashboard-leta/examples/disk_summary.csv="5C09C4F4"
+/home/csdambros2/Documents/Dashboards/dashboard-leta/index.qmd="37919B19"
 /home/csdambros2/Documents/Dashboards/dashboard-leta/painel-server1/.gitignore="91F256A7"

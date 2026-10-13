@@ -1,0 +1,57 @@
+---
+title: "Server1 · Painel de recursos"
+lang: pt-BR
+format:
+  html:
+    theme: none
+    toc: false
+    title-block-style: none
+    css: assets/styles.css
+    include-after-body: assets/scripts.html
+---
+
+```{=html}
+
+  <div class="shell">
+    <header class="topbar">
+      <div class="identity"><span class="mark" aria-hidden="true">s1</span><div><strong>server1</strong><span>Painel de recursos</span></div></div>
+      <div class="top-actions"><span id="dataBadge" class="badge demo">Dados de exemplo</span><button id="importToggle" class="button primary" type="button" aria-controls="importPanel" aria-expanded="false">Substituir CSVs</button></div>
+    </header>
+    <main>
+      <div class="heading"><div><p class="eyebrow">VISÃO GERAL</p><h1>Recursos e quotas</h1><p class="subhead" id="lastUpdate">Carregando dados…</p></div><div class="heading-actions"><button id="refreshRemote" class="text-button" type="button">Atualizar</button><button id="resetDemo" class="text-button" type="button" hidden>Voltar aos exemplos</button></div></div>
+      <section id="importPanel" class="import-panel" hidden aria-label="Importar CSVs reais">
+        <div class="section-title"><div><p class="eyebrow">FONTE DE DADOS</p><h2>Substituir pelos arquivos reais</h2></div><button id="importClose" class="icon-button" aria-label="Fechar importação" type="button">×</button></div>
+        <p>Selecione os quatro CSVs gerados no server1. Os arquivos são lidos somente neste navegador e não são enviados ao site. Cada novo arquivo substitui apenas seu conjunto de dados. Ao recarregar a página, selecione-os novamente.</p>
+        <div class="upload-grid">
+          <label class="upload-card"><span>Uso por usuário</span><code>user_disk_usage.csv</code><input id="fileUsers" type="file" accept=".csv,text/csv"><small>Colunas: username, used_gb; opcionais home_gb, projects_gb, updated_at</small></label>
+          <label class="upload-card"><span>Quotas</span><code>user_quotas.csv</code><input id="fileQuotas" type="file" accept=".csv,text/csv"><small>Colunas: username, soft_limit_gb, hard_limit_gb; opcionais used_gb, grace_expires</small></label>
+          <label class="upload-card"><span>Volumes</span><code>disk_summary.csv</code><input id="fileDisk" type="file" accept=".csv,text/csv"><small>Colunas: filesystem, total_gb, used_gb; opcionais available_gb, updated_at</small></label>
+          <label class="upload-card"><span>Memória</span><code>memory_summary.csv</code><input id="fileMemory" type="file" accept=".csv,text/csv"><small>Colunas: timestamp, total_gb, used_gb; opcionais swap_total_gb, swap_used_gb</small></label>
+        </div>
+        <div class="import-footer"><p id="importStatus" role="status">Aceita CSV com vírgulas ou ponto e vírgula; números decimais com ponto ou vírgula.</p><a href="./examples/user_disk_usage.csv" download>Exemplo usuários</a><a href="./examples/user_quotas.csv" download>Quotas</a><a href="./examples/disk_summary.csv" download>Disco</a><a href="./examples/memory_summary.csv" download>Memória</a></div>
+      </section>
+      <div id="errorBanner" class="error-banner" role="alert" hidden></div>
+      <section class="metrics" aria-label="Indicadores principais">
+        <article class="metric"><span>Usuários acompanhados</span><div class="metric-value" id="kpiUsers">—</div><small id="kpiUsersDetail">—</small></article>
+        <article class="metric attention"><span>Quotas em atenção</span><div class="metric-value" id="kpiQuotas">—</div><small id="kpiQuotasDetail">—</small></article>
+        <article class="metric"><span>Maior ocupação de disco</span><div class="metric-value" id="kpiDisk">—</div><small id="kpiDiskDetail">—</small></article>
+        <article class="metric"><span>Memória RAM</span><div class="metric-value" id="kpiRam">—</div><small id="kpiRamDetail">—</small></article>
+      </section>
+      <section class="attention-strip" aria-label="Situações que exigem atenção"><div class="attention-title"><span class="signal" aria-hidden="true"></span><strong>Na última coleta</strong></div><div id="alerts" class="alert-list"></div></section>
+      <div class="dashboard-grid">
+        <section class="panel users-panel" aria-labelledby="usersTitle">
+          <div class="section-title"><div><p class="eyebrow">QUOTAS INDIVIDUAIS</p><h2 id="usersTitle">Usuários</h2></div><span id="resultCount" class="count"></span></div>
+          <div class="filters"><label class="search-wrap"><span class="sr-only">Filtrar usuário</span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.7"/><path d="m13 13 4.2 4.2"/></svg><input id="userSearch" type="search" placeholder="Buscar usuário"></label><label class="select-wrap"><span class="sr-only">Filtrar por situação</span><select id="statusFilter"><option value="all">Todas as situações</option><option value="hard">Acima do limite rígido</option><option value="soft">Acima do limite flexível</option><option value="normal">Dentro do limite</option></select></label></div>
+          <div class="table-scroll"><table><thead><tr><th scope="col">Usuário</th><th scope="col">Uso</th><th scope="col">Quota</th><th scope="col">Situação</th></tr></thead><tbody id="usersBody"></tbody></table></div>
+          <p class="empty-state" id="usersEmpty" hidden>Nenhum usuário corresponde aos filtros.</p>
+        </section>
+        <div class="side-stack">
+          <section class="panel" aria-labelledby="diskTitle"><div class="section-title"><div><p class="eyebrow">ARMAZENAMENTO</p><h2 id="diskTitle">Uso de disco</h2></div></div><div id="diskList" class="disk-list"></div></section>
+          <section class="panel" aria-labelledby="memoryTitle"><div class="section-title"><div><p class="eyebrow">SÉRIE TEMPORAL</p><h2 id="memoryTitle">Memória</h2></div><div class="legend"><span><i class="ram-key"></i>RAM</span><span><i class="swap-key"></i>Swap</span></div></div><div id="memoryChart" class="chart"></div><div id="memoryLatest" class="memory-latest"></div></section>
+        </div>
+      </div>
+      <p class="footnote">Capacidades exibidas em GiB. Limites usados nos alertas: quota flexível e rígida conforme CSV; disco e RAM a partir de 85% (crítico em 95%); swap a partir de 70%. Contas identificadas apenas por UID permanecem sem nome até a coleta resolver o usuário.</p>
+    </main>
+  </div>
+
+```

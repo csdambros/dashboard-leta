@@ -1,0 +1,11 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+  resources:
+    - assets/**
+    - examples/**
+    - data/**
+website:
+  title: "Server1 · Painel de recursos"

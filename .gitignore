@@ -1,0 +1,12 @@
+/_site/
+/.quarto/
+/.Rproj.user/
+.Rhistory
+.RData
+/data/*
+!/data/.gitkeep
+*.html
+!/assets/scripts.html
+.env*
+*Key.txt
+.Rproj
